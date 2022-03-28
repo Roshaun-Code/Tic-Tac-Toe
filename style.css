@@ -1,0 +1,43 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+:root{
+    font-size: 16px;
+}
+
+.container > h1{
+    margin-top: 10px;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.game-container{
+    box-sizing: border-box;
+    width: 500px;
+    height: 500px;
+    border: 3px solid black;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+}
+
+.cell{
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
+    border: 3px solid black;
+}
+
+.cell:hover{
+    cursor: pointer;
+}
