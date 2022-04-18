@@ -15,7 +15,7 @@ const gameModule = (function() {
     let turns = 0;
 
     let winner = null;
-    
+
     //win combinations
     const winCombos = [
         [0,1,2],
@@ -34,30 +34,57 @@ const gameModule = (function() {
         cell.addEventListener('click', (e) => {
             if (player1.turn == true && winner == null && e.target.innerHTML == ""){
                 //adds the player move to the array
-                board[e.target.id] == player1.move;
+                board[e.target.id] = player1.move;
                 //renders player move to the screen
-                cell.innerHTML = player1.move;
+                cell.innerHTML = player1.move
                 player1.turn = false;
                 player2.turn = true;
-                turns++;
-                console.log(turns)
+                console.log(board)
             }
             else if (player2.turn == true && winner == null && e.target.innerHTML == ""){
-                board[e.target.id] == player2.move;
+                board[e.target.id] = player2.move
                 cell.innerHTML = player2.move;
                 player1.turn = true;
                 player2.turn =  false
-                turns++;
-                console.log(turns)
+                console.log(board)
             } else return;
+            turns++;
+            checkWin();
+            gameOver();
         })
     })
 
-    function checkWin(boardArray, player){
-        let plays = boardArray.reduce((a,e,i) =>
-            (e === player) ? a.concat(i) : a, [])
-
+    function switchP(e){
+        
     }
+    //function to check if a players wins
+    function checkWin(){
+        let p1 = board.reduce((a,e,i) =>
+        (e === player1.move) ? a.concat(i) : a, [])
+
+        let p2 = board.reduce((a,e,i) => 
+        (e === player2.move) ? a.concat(i) : a, [])
+
+        for (let [index, win] of winCombos.entries()){
+            if (win.every(elem => p1.indexOf(elem) > -1)){
+                gameModule.winner = "player1";
+            } else if (win.every(elem => p2.indexOf(elem) > -1)){
+                gameModule.winner = "player2";
+            } else if (gameModule.winner == null && turns == 9){
+                gameModule.winner = "tie";
+            }
+        }
+        console.log(turns, gameModule.winner)
+        return gameModule.winner
+    }
+
+    function gameOver(){
+        if (gameModule.winner != null){
+            player1.turn = false
+            player2.turn = false
+        }
+    }
+    return {board};
 })();
 
 const displayController = (function() {
