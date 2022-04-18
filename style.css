@@ -1,10 +1,15 @@
-*{
+@import url('https://fonts.googleapis.com/css2?family=Paytone+One&family=Roboto&display=swap');
+
+*, *::before, *::after{
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 :root{
     font-size: 16px;
+    --mark-size: 90%;
 }
 
 .container > h1{
@@ -25,17 +30,41 @@ body{
     box-sizing: border-box;
     width: 500px;
     height: 500px;
-    border: 3px solid black;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
 }
 
 .cell{
-    box-sizing: border-box;
     height: 100%;
     width: 100%;
     border: 3px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+}
+
+.cell:first-child,
+.cell:nth-child(2),
+.cell:nth-child(3){
+    border-top: none;
+}
+
+.cell:nth-child(3n + 1){
+    border-left: none;
+}
+
+.cell:nth-child(3),
+.cell:nth-child(6),
+.cell:nth-child(9){
+    border-right: none;
+}
+
+.cell:nth-child(7),
+.cell:nth-child(8),
+.cell:nth-child(9){
+    border-bottom: none;
 }
 
 .cell:hover{
