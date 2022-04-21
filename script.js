@@ -141,6 +141,11 @@ const displayController = (function() {
     // }
 
     let winnerDisplay = () => {
+        for (let i = 0; i < gameModule.playerMove.length; i++){
+            let moves = document.getElementById(gameModule.playerMove[i])
+            moves.classList.add("selected-cells")
+        }
+
         if (gameModule.winner == "player1"){
             winner.classList.add("active")
             winner.innerText = "Player 1 wins!"

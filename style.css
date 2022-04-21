@@ -15,6 +15,7 @@
     --text-color: #be123c;
     --board-color: #e11d48;
     --player-move: #fb7185;
+    --selected-cells: #fecdd3;
 }
 
 body > h1{
@@ -55,10 +56,13 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 3rem;
+    font-size: 4rem;
     font-weight: 700;
 }
 
+.selected-cells{
+    background-color: var(--selected-cells);
+}
 .cell:first-child,
 .cell:nth-child(2),
 .cell:nth-child(3){
