@@ -160,7 +160,6 @@ const displayController = (function() {
         }else if (gameModule.winner == "tie"){
             winner.classList.add("active")
             winner.innerText = "Its a tie!"
-            selectedCells()
         } else return
     }
 
