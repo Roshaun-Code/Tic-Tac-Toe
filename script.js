@@ -18,6 +18,9 @@ const gameModule = (function() {
 
     let playerMove = [];
 
+    //this will turn true whenever a winner is decided
+    let gameStatus = false;
+
     //win combinations
     const winCombos = [
         [0,1,2],
@@ -55,6 +58,7 @@ const gameModule = (function() {
             gameOver();
         })
     })
+
     //function to check if a players wins
     function checkWin(){
         let p1 = board.reduce((a,e,i) =>
@@ -67,15 +71,20 @@ const gameModule = (function() {
             if (win.every(elem => p1.indexOf(elem) > -1)){
                 gameModule.winner = "player1";
                 gameModule.playerMove = win;
+                gameModule.gameStatus = true;
             } else if (win.every(elem => p2.indexOf(elem) > -1)){
                 gameModule.winner = "player2";
                 gameModule.playerMove = win;
+                gameModule.gameStatus = true;
             } else if (gameModule.winner == null && turns == 9){
                 gameModule.winner = "tie";
                 gameModule.playerMove = win;
+                gameModule.gameStatus = true;
             }
         }
         console.log(turns, gameModule.winner)
+        displayController.winnerDisplay();
+
         return gameModule.winner
     }
 
@@ -88,6 +97,7 @@ const gameModule = (function() {
     }
 
     gameReset = () => {
+        gameModule.gameStatus = false;
         player1.turn = true;
         player2.turn = false;
         turns = 0;
@@ -95,12 +105,14 @@ const gameModule = (function() {
         board.splice(0, board.length)
         console.log("reset")
     }
-    return {board, gameReset, gameOver, winner, playerMove};
+    return {board, gameReset, gameStatus, gameOver, winner, playerMove};
 })();
 
 const displayController = (function() {
-    const resetButton = document.querySelector(".reset")
+    const body = document.body
+    const resetButton = document.querySelectorAll(".reset")
     const cells = document.querySelectorAll(".cell")
+    const winner = document.querySelector(".display-winner")
 
     function gameReplay(){
         cells.forEach(cell => {
@@ -108,7 +120,42 @@ const displayController = (function() {
         })
         gameModule.gameReset()
     }
+    
+    // let winnerDisplay = () => {
+    //     if (gameModule.winner === "player1"){
+    //         const winnerScreen = document.createElement("div")
+    //         winnerScreen.classList.add("display-winner");
+    //         winnerScreen.innerText = "Player 1 wins!"
+    //         body.appendChild(winnerScreen)
+    //     } else if (gameModule.winner === "player2"){
+    //         const winnerScreen = document.createElement("div")
+    //         winnerScreen.classList.add("display-winner");
+    //         winnerScreen.innerText = "Player 2 wins!"
+    //         body.appendChild(winnerScreen)
+    //     } else if (gameModule.winner === "tie"){
+    //         const winnerScreen = document.createElement("div")
+    //         winnerScreen.classList.add("display-winner");
+    //         winnerScreen.innerText = "Its a tie!"
+    //         body.appendChild(winnerScreen);
+    //     } else return
+    // }
 
-    resetButton.addEventListener("click", gameReplay)
-    //gameModule.helloWorld()
+    let winnerDisplay = () => {
+        if (gameModule.winner == "player1"){
+            winner.classList.add("active")
+            winner.innerText = "Player 1 wins!"
+        }else if (gameModule.winner == "player2"){
+            winner.classList.add("active")
+            winner.innerText = "Player 2 wins!"
+        }else if (gameModule.winner == "tie"){
+            winner.classList.add("active")
+            winner.innerText = "Its a tie!"
+        } else return
+    }
+
+    resetButton.forEach((button) => {
+        button.addEventListener("click", gameReplay)
+    })
+    //resetButton.addEventListener("click", gameReplay)
+    return {winnerDisplay}
 })();
