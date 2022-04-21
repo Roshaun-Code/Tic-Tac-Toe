@@ -142,20 +142,25 @@ const displayController = (function() {
     // }
 
     let winnerDisplay = () => {
-        for (let i = 0; i < gameModule.playerMove.length; i++){
-            let moves = document.getElementById(gameModule.playerMove[i])
-            moves.classList.add("selected-cells")
+        function selectedCells(){
+            for (let i = 0; i < gameModule.playerMove.length; i++){
+                let moves = document.getElementById(gameModule.playerMove[i])
+                moves.classList.add("selected-cells")
+            }
         }
 
         if (gameModule.winner == "player1"){
             winner.classList.add("active")
             winner.innerText = "Player 1 wins!"
+            selectedCells()
         }else if (gameModule.winner == "player2"){
             winner.classList.add("active")
             winner.innerText = "Player 2 wins!"
+            selectedCells()
         }else if (gameModule.winner == "tie"){
             winner.classList.add("active")
             winner.innerText = "Its a tie!"
+            selectedCells()
         } else return
     }
 
