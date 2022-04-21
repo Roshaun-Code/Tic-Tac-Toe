@@ -84,6 +84,7 @@ const gameModule = (function() {
         }
         console.log(turns, gameModule.winner)
         displayController.winnerDisplay();
+        setTimeout(displayController.removeClass, 5000)
 
         return gameModule.winner
     }
@@ -158,9 +159,22 @@ const displayController = (function() {
         } else return
     }
 
+    let removeClass = () => {
+        if (winner.classList.contains("active")){
+            winner.classList.remove("active")
+            winner.innerText = ""
+        } else return
+    }
+
     resetButton.forEach((button) => {
-        button.addEventListener("click", gameReplay)
+        button.addEventListener("click", () => {
+            gameReplay()
+            for (let i = 0; i < gameModule.playerMove.length; i++){
+                let moves = document.getElementById(gameModule.playerMove[i])
+                moves.classList.remove("selected-cells")
+            }
+        })
     })
     //resetButton.addEventListener("click", gameReplay)
-    return {winnerDisplay}
+    return {winnerDisplay, removeClass}
 })();
