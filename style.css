@@ -68,8 +68,8 @@ body{
 
 .title-page{
     position: fixed;
-    transition: 350ms;
-    transition-timing-function: ease;
+    /* transition: 100ms;
+    transition-timing-function: ease; */
     opacity: 0;
     pointer-events: none;
     z-index: 5;
