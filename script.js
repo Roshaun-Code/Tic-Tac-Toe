@@ -111,6 +111,8 @@ const gameModule = (function() {
 
 const displayController = (function() {
     const body = document.body
+    const titlePage = document.querySelector("[data-title-page]")
+    const player2Button = document.querySelector(".player-2")
     const resetButton = document.querySelectorAll(".reset")
     const cells = document.querySelectorAll(".cell")
     const winner = document.querySelector(".display-winner")
@@ -121,6 +123,14 @@ const displayController = (function() {
         })
         gameModule.gameReset()
     }
+
+    let removePage = () => {
+        if (titlePage.classList.contains("active")){
+            titlePage.classList.remove("active")
+        }
+    }
+
+    player2Button.addEventListener("click", removePage)
     
     // let winnerDisplay = () => {
     //     if (gameModule.winner === "player1"){
